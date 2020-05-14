@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "923333211954",
+    "firebase_url": "https://interviewversionone.firebaseio.com",
+    "project_id": "interviewversionone",
+    "storage_bucket": "interviewversionone.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:923333211954:android:26110d831cce506036492b",
+        "android_client_info": {
+          "package_name": "com.example.interviewversionone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "923333211954-kd9icb64h82f068ok5gbq2unudlj802k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmXSsLnVXEbcfGptfnnL0E3B-F9lDLsuE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "923333211954-kd9icb64h82f068ok5gbq2unudlj802k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
