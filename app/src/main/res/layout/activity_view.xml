@@ -6,32 +6,9 @@
     android:layout_height="wrap_content"
     tools:context=".ViewActivity"
     android:orientation="vertical">
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_chevron_right"
-        android:paddingLeft="20dp"
-        android:layout_marginTop="2dp"
-        android:id="@+id/img_viewActivity"
-
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_viewActivity"
-        android:textSize="24dp"
-        android:text="click here"
-        android:paddingLeft="20dp"
-        android:gravity="center_vertical"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_desViewActivity"
-        android:textSize="24dp"
-        android:text="Description"
-        android:paddingLeft="20dp"
-        android:gravity="center_vertical"
-        />
+   <androidx.recyclerview.widget.RecyclerView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:id="@+id/rec_topicslist"/>
 
 </LinearLayout>

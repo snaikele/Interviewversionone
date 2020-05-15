@@ -7,13 +7,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.interviewversionone.model.Model;
+import com.example.interviewversionone.model.Team;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.firebase.ui.firestore.SnapshotParser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,9 +30,9 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView mRecyclerView;
     FirebaseDatabase mFirebaseDatabase;
     DatabaseReference mDatabaseReference;
-    FirebaseRecyclerAdapter<Model, MyViewHolder> firebaseRecyclerAdapter;
+    FirestoreRecyclerAdapter<Team, MyViewHolder> firebaseRecyclerAdapter;
 
-    FirebaseRecyclerOptions<Model> options;
+    FirestoreRecyclerOptions<Team> options;
 
 
 
@@ -42,79 +46,58 @@ public class MainActivity extends AppCompatActivity {
         mLinearLayoutManager.setStackFromEnd(false);
         mRecyclerView=findViewById(R.id.rec_btnview);
         mFirebaseDatabase= FirebaseDatabase.getInstance();
-        mDatabaseReference = mFirebaseDatabase.getReference("Button");
+        /*mDatabaseReference = mFirebaseDatabase.getReference("Button");*/
+
 
         showData();
 
-        /*mDatabaseReference= FirebaseDatabase.getInstance().getReference().child("Button");*/
-        /*recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        recyclerView.setHasFixedSize(true);
 
-
-        options = new FirebaseRecyclerOptions.Builder<Model>()
-                .setQuery(databaseReference, Model.class).build();
-        adapter = new FirebaseRecyclerAdapter<Model, MyViewHolder>(options) {
-            @Override
-            protected void onBindViewHolder(MyViewHolder holder, int position, Model button) {
-
-
-                holder.t1.setText(button.getName());
-                Picasso.get().load(button.getImageLink()).into(holder.i1, new Callback() {
-                    @Override
-                    public void onSuccess() {
-
-                    }
-
-                    @Override
-                    public void onError(Exception e) {
-                        Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
-                    }
-                });
-
-            }
-
-            @NonNull
-            @Override
-            public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.btnview, parent, false);
-
-                return new MyViewHolder(v);
-            }
-        };
-        adapter.startListening();
-        recyclerView.setAdapter(adapter);*/
     }
 
     private void showData(){
+        Query query = FirebaseFirestore.getInstance()
+                .collection("Team");
+        options = new FirestoreRecyclerOptions.Builder<Team>()
+                .setQuery(query, new SnapshotParser<Team>() {
+                    @NonNull
+                    @Override
+                    public Team parseSnapshot(@NonNull DocumentSnapshot snapshot) {
+                        Team team= new Team();
+                        team.setTeamId(snapshot.getId());
+                        team.setTeamName(snapshot.getString("TeamName"));
+                        return team;
+                    }
+                })
+                /*.setQuery(query, Team.class)*/
+                .build();
 
-        options = new FirebaseRecyclerOptions.Builder<Model>()
-                .setQuery(mDatabaseReference, Model.class).build();
-
-        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Model, MyViewHolder>(options) {
+        firebaseRecyclerAdapter = new FirestoreRecyclerAdapter<Team, MyViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull Model model) {
-                holder.setDetails(getApplicationContext(), model.getTitle(), model.getImage(), model.getDesc());
+            protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull final Team model) {
+                holder.setDetails(getApplicationContext(), model.getTeamName());
+                holder.setOnClickListner(new MyViewHolder.ClickListner() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Intent intent = new Intent(MainActivity.this, ViewActivity.class);
+                        intent.putExtra("TeamViewKey", model.getTeamId());
+                        startActivity(intent);
+
+                       // Toast.makeText(MainActivity.this,""+model.getTeamId(),Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onItemLongClick(View view, int position) {
+                            Toast.makeText(MainActivity.this,"long click ",Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
 
             @NonNull
             @Override
             public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.btnview, parent, false);
-                MyViewHolder viewHolder = new MyViewHolder(itemView);
-                viewHolder.setOnClickListner(new MyViewHolder.ClickListner() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        Intent intent = new Intent(MainActivity.this, ViewActivity.class);
-                        intent.putExtra("ButtonViewKey", getRef(position).getKey());
-                        startActivity(intent);
-                        Toast.makeText(MainActivity.this,"hello ",Toast.LENGTH_SHORT).show();
-                    }
+                final MyViewHolder viewHolder = new MyViewHolder(itemView);
 
-                    @Override
-                    public void onItemLongClick(View view, int position) {
-                        Toast.makeText(MainActivity.this,"long click ",Toast.LENGTH_SHORT).show();
-                    }
-                });
 
                 return viewHolder;
             }
