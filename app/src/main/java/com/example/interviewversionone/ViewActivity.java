@@ -88,8 +88,8 @@ public class ViewActivity extends AppCompatActivity {
                 holder.setOnClickListner(new MyViewHolderTopics.ClickListner() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        Intent intent = new Intent(ViewActivity.this, ViewActivity.class);
-                        intent.putExtra("TeamViewKey", model.getTeamId());
+                        Intent intent = new Intent(ViewActivity.this, DetailActivity.class);
+                        intent.putExtra("TeamDetailKey", model.getMembersId());
                         startActivity(intent);
 
                         // Toast.makeText(MainActivity.this,""+model.getTeamId(),Toast.LENGTH_SHORT).show();

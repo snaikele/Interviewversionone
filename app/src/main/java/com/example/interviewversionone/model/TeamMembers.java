@@ -1,9 +1,17 @@
 package com.example.interviewversionone.model;
 
 public class TeamMembers {
-    String Mobile,Name, TeamId, MembersId;
+    String Mobile,Name, TeamId, MembersId,Task;
 
     public TeamMembers() {
+    }
+
+    public String getTask() {
+        return Task;
+    }
+
+    public void setTask(String task) {
+        Task = task;
     }
 
     public String getMembersId() {
