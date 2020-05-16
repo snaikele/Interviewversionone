@@ -1,21 +1,20 @@
-package com.example.interviewversionone;
+package com.example.interviewversionone.holders;
+
 
 import android.content.Context;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.squareup.picasso.Picasso;
+import com.example.interviewversionone.R;
 
-public class MyViewHolder extends RecyclerView.ViewHolder {
+public class MyViewHolderTopics extends RecyclerView.ViewHolder {
 
 
     View mview;
-    public MyViewHolder(@Nullable View itemView) {
+    public MyViewHolderTopics(@Nullable View itemView) {
         super(itemView);
 
         mview=itemView;
@@ -40,21 +39,23 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void setDetails(Context ctx, String title){
+    public void setDetails(Context ctx, String name, String mobile){
 
-        TextView t1 = mview.findViewById(R.id.tv_view);
+        TextView t1 = mview.findViewById(R.id.tv_topicName);
+        TextView t2 = mview.findViewById(R.id.tv_topicMobileNo);
 
-        t1.setText(title);
 
+        t1.setText(name);
+        t2.setText(mobile);
     }
-    private MyViewHolder.ClickListner mClickListner;
+    private MyViewHolderTopics.ClickListner mClickListner;
 
 
     public interface ClickListner {
         void onItemClick(View view,int position);
         void onItemLongClick(View view,int position);
     }
-    public void setOnClickListner(MyViewHolder.ClickListner clickListner){
+    public void setOnClickListner(MyViewHolderTopics.ClickListner clickListner){
         mClickListner = clickListner;
     }
 }

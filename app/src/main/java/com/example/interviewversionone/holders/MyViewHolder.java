@@ -1,5 +1,4 @@
-package com.example.interviewversionone;
-
+package com.example.interviewversionone.holders;
 
 import android.content.Context;
 import android.view.View;
@@ -8,11 +7,13 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MyViewHolderTopics extends RecyclerView.ViewHolder {
+import com.example.interviewversionone.R;
+
+public class MyViewHolder extends RecyclerView.ViewHolder {
 
 
     View mview;
-    public MyViewHolderTopics(@Nullable View itemView) {
+    public MyViewHolder(@Nullable View itemView) {
         super(itemView);
 
         mview=itemView;
@@ -37,23 +38,21 @@ public class MyViewHolderTopics extends RecyclerView.ViewHolder {
 
     }
 
-    public void setDetails(Context ctx, String name, String mobile){
+    public void setDetails(Context ctx, String title){
 
-        TextView t1 = mview.findViewById(R.id.tv_topicName);
-        TextView t2 = mview.findViewById(R.id.tv_topicMobileNo);
+        TextView t1 = mview.findViewById(R.id.tv_view);
 
+        t1.setText(title);
 
-        t1.setText(name);
-        t2.setText(mobile);
     }
-    private MyViewHolderTopics.ClickListner mClickListner;
+    private MyViewHolder.ClickListner mClickListner;
 
 
     public interface ClickListner {
         void onItemClick(View view,int position);
         void onItemLongClick(View view,int position);
     }
-    public void setOnClickListner(MyViewHolderTopics.ClickListner clickListner){
+    public void setOnClickListner(MyViewHolder.ClickListner clickListner){
         mClickListner = clickListner;
     }
 }

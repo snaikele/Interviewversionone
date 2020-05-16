@@ -1,4 +1,4 @@
-package com.example.interviewversionone;
+package com.example.interviewversionone.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,36 +7,33 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.DetailActivity;
+import com.example.interviewversionone.holders.MyViewHolderTopics;
+import com.example.interviewversionone.R;
 import com.example.interviewversionone.model.TeamMembers;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.github.ybq.android.spinkit.style.DoubleBounce;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.squareup.picasso.Picasso;
 
 public class ViewActivity extends AppCompatActivity {
     private static final String TAG = "TeamMemberInfo";
     ImageView imageView;
+    ProgressBar progressBar;
     TextView title, desc;
     DatabaseReference databaseReference;
     LinearLayoutManager mLinearLayoutManager;
@@ -56,6 +53,10 @@ public class ViewActivity extends AppCompatActivity {
         mLinearLayoutManager.setReverseLayout(false);
         mLinearLayoutManager.setStackFromEnd(false);
         mRecyclerView=findViewById(R.id.rec_topicslist);
+
+        progressBar = findViewById(R.id.spinner_viewActivity);
+        DoubleBounce doubleBounce = new DoubleBounce();
+        progressBar.setIndeterminateDrawable(doubleBounce);
         mFirebaseDatabase= FirebaseDatabase.getInstance();
         String message = intent.getStringExtra("TeamViewKey");
        /* showData();*/
@@ -75,6 +76,7 @@ public class ViewActivity extends AppCompatActivity {
                         team.setName(snapshot.getString("Name"));
                         team.setMobile(snapshot.getString("Mobile"));
                         team.setMembersId(snapshot.getId());
+                        progressBar.setVisibility(View.GONE);
                         return team;
                     }
                 })

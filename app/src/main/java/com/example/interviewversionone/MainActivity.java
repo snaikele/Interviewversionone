@@ -5,14 +5,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.interviewversionone.holders.MyViewHolder;
 import com.example.interviewversionone.model.Team;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.example.interviewversionone.ui.ViewActivity;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
+import com.github.ybq.android.spinkit.style.DoubleBounce;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -25,7 +27,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity {
-
+    ProgressBar progressBar;
     LinearLayoutManager mLinearLayoutManager;
     RecyclerView mRecyclerView;
     FirebaseDatabase mFirebaseDatabase;
@@ -47,8 +49,9 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView=findViewById(R.id.rec_btnview);
         mFirebaseDatabase= FirebaseDatabase.getInstance();
         /*mDatabaseReference = mFirebaseDatabase.getReference("Button");*/
-
-
+        progressBar = findViewById(R.id.spinner_mainActivity);
+        DoubleBounce doubleBounce = new DoubleBounce();
+        progressBar.setIndeterminateDrawable(doubleBounce);
         showData();
 
 
@@ -65,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
                         Team team= new Team();
                         team.setTeamId(snapshot.getId());
                         team.setTeamName(snapshot.getString("TeamName"));
+                        progressBar.setVisibility(View.GONE);
                         return team;
                     }
                 })

@@ -1,4 +1,4 @@
-package com.example.interviewversionone;
+package com.example.interviewversionone.holders;
 
 import android.content.Context;
 import android.view.View;
@@ -6,6 +6,8 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.interviewversionone.R;
 
 public class MyViewHolderDetail  extends RecyclerView.ViewHolder {
 
