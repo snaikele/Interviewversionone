@@ -1,9 +1,17 @@
 package com.example.interviewversionone.model;
 
 public class Team {
-    String TeamName,TeamId;
+    String TeamName,TeamId,TeamImgUrl;
 
     public Team() {
+    }
+
+    public String getTeamImgUrl() {
+        return TeamImgUrl;
+    }
+
+    public void setTeamImgUrl(String teamImgUrl) {
+        TeamImgUrl = teamImgUrl;
     }
 
     public String getTeamId() {

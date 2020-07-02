@@ -1,55 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#FFF"
     app:cardCornerRadius="3.0dp"
     app:cardUseCompatPadding="true"
     app:contentPadding="5.0dp"
-    app:cardBackgroundColor="@color/btnBackground">
+
+    app:cardBackgroundColor="@color/btnBackground"
+    >
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="horizontal"
         android:padding="10dp"
+
         >
 
-        <TextView
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#FFF"
-            android:textSize="18sp"
-            android:text="hello"
-            android:paddingLeft="20dp"
-            android:layout_marginTop="2dp"
-            android:id="@+id/tv_topicName"
-
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_topicMobileNo"
-            android:textSize="12sp"
-            android:textColor="#FF9800"
-            android:text="hello"
-            android:layout_marginTop="5dp"
-            android:paddingLeft="20dp"
-            android:gravity="center_vertical"
-            android:layout_below="@+id/tv_topicName"
-            />
-
-
         <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            android:scaleType="centerCrop"
+            android:id="@+id/img_examList"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_examName"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/img_mainActivity"
+            android:text="click here"
+            android:textColor="#FFF"
+            android:paddingBottom="10dp"
+
+            />
+        <!--<ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_chevron_right"
-            android:tint="#FFF"
+            android:paddingLeft="20dp"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true" />
+            android:id="@+id/img_view"
+            android:tint="#FFF"
+            android:layout_alignParentEnd="true" />-->
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

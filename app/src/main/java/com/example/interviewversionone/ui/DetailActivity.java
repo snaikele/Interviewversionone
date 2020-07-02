@@ -1,4 +1,4 @@
-package com.example;
+package com.example.interviewversionone.ui;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,11 +13,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
+/*import com.example.LoadingDialogs;*/
 import com.example.interviewversionone.holders.MyViewHolderDetail;
 import com.example.interviewversionone.R;
 import com.example.interviewversionone.model.TeamMembers;
@@ -34,12 +37,14 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
 
 public class DetailActivity extends AppCompatActivity {
     private static final String TAG = "TeamMemberDetail";
     LinearLayoutManager mLinearLayoutManager;
     RecyclerView mRecyclerView;
     TextView textView,name;
+    ImageView imageView;
     ProgressBar progressBar;
     FirebaseDatabase mFirebaseDatabase;
     DatabaseReference mDatabaseReference;
@@ -53,6 +58,7 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         textView=findViewById(R.id.tv_detailText);
         name=findViewById(R.id.tv_DetailName);
+        imageView=findViewById(R.id.img_detailView);
         Intent intent = getIntent();
 
         final LoadingDialogs dialog =new LoadingDialogs(DetailActivity.this);
@@ -69,6 +75,16 @@ public class DetailActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        //toolbar back button click listner
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                finish();   }
+        });
+
+
         /*toolbar.setTitle(title);*/
        /* toolbar.setTitle("hello");*/
 
@@ -112,6 +128,8 @@ public class DetailActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(),""+document.getData(),Toast.LENGTH_SHORT).show();
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 textView.setText(document.getString("Task"));
+                                String image = document.getString("TaskImage");
+                                Picasso.get().load(image).into(imageView);
                                 final DocumentReference docRef = db.collection("TeamMembers").document(document.getString("MembersId"));
                                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                     @Override
@@ -121,9 +139,11 @@ public class DetailActivity extends AppCompatActivity {
                                             if (document.exists()) {
                                                 Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                                                 name.setText(document.getString("Name"));
+
                                                 String Name = document.getString("Name");
                                                 collapsingToolbarLayout.setTitle(Name);
                                                 name.setText(Name);
+
                                                 dialog.dismissDialog();
                                                /* progressBar.setVisibility(View.GONE);*/
 

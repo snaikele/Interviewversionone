@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FFF"
+    app:cardCornerRadius="3.0dp"
+    app:cardUseCompatPadding="true"
+    app:contentPadding="5.0dp"
+   >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:textSize="18sp"
+            android:text="Question no 1 of quant this is compulsary question"
+            android:paddingLeft="20dp"
+            android:layout_marginTop="2dp"
+            android:id="@+id/tv_topicName"
+
+            />
+             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_optionOne"
+                android:textSize="12sp"
+                android:textColor="#FF9800"
+                android:text="A . Option 1 "
+                android:layout_marginTop="5dp"
+                android:paddingLeft="20dp"
+                android:gravity="center_vertical"
+                android:layout_below="@+id/tv_topicName"
+             />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_optionTwo"
+                android:textSize="12sp"
+                android:textColor="#FF9800"                
+                android:text="B . Option 2 "
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="100dp"
+                android:gravity="end"
+                android:layout_below="@+id/tv_topicName"
+            />
+
+             <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:id="@+id/tv_OptionThree"
+                 android:textSize="12sp"
+                 android:textColor="#FF9800"
+                 android:text="C . Option 3 "
+                 android:layout_marginTop="5dp"
+                 android:paddingLeft="20dp"
+                 android:gravity="center_vertical"
+                 android:layout_below="@+id/tv_optionOne"
+             />
+
+              <TextView
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/tv_optionFour"
+                  android:textSize="12sp"
+                  android:textColor="#FF9800"
+                  android:text="D . Option 4 "
+                  android:layout_marginTop="5dp"
+                  android:layout_marginRight="100dp"
+                  android:gravity="end"
+                  android:layout_below="@+id/tv_optionTwo"
+                  />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_viewAns"
+                    android:textSize="12sp"
+
+                    android:textColor="#000"
+                    android:text="View answer"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="100dp"
+                    android:paddingLeft="20dp"
+                    android:layout_below="@+id/tv_OptionThree"
+                    />
+
+        <!--<ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_chevron_right"
+            android:tint="#FFF"
+
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true" />  -->
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

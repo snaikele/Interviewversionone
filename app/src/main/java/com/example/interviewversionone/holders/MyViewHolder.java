@@ -2,12 +2,14 @@ package com.example.interviewversionone.holders;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.interviewversionone.R;
+import com.squareup.picasso.Picasso;
 
 public class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -38,9 +40,11 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void setDetails(Context ctx, String title){
+    public void setDetails(Context ctx, String title, String imageurl){
 
         TextView t1 = mview.findViewById(R.id.tv_view);
+        ImageView i1 =mview.findViewById(R.id.img_mainActivity);
+        Picasso.get().load(imageurl).into(i1);
 
         t1.setText(title);
 

@@ -2,21 +2,25 @@ package com.example.interviewversionone.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.example.DetailActivity;
 import com.example.interviewversionone.holders.MyViewHolderTopics;
 import com.example.interviewversionone.R;
 import com.example.interviewversionone.model.TeamMembers;
@@ -26,15 +30,16 @@ import com.firebase.ui.firestore.SnapshotParser;
 import com.github.ybq.android.spinkit.style.DoubleBounce;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.annotations.Nullable;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 
 public class ViewActivity extends AppCompatActivity {
     private static final String TAG = "TeamMemberInfo";
-    ImageView imageView;
-    ProgressBar progressBar;
-    TextView title, desc;
+    EditText editText;
     DatabaseReference databaseReference;
     LinearLayoutManager mLinearLayoutManager;
     RecyclerView mRecyclerView;
@@ -54,15 +59,25 @@ public class ViewActivity extends AppCompatActivity {
         mLinearLayoutManager.setStackFromEnd(false);
         mRecyclerView=findViewById(R.id.rec_topicslist);
 
-        progressBar = findViewById(R.id.spinner_viewActivity);
+
+
+        //dialog box, shows loading indication
+        final LoadingDialogs dialog =new LoadingDialogs(ViewActivity.this);
+        dialog.startLoadingDialog();
+
+
+        //custom progress bar from gitHub library
+        /*progressBar = findViewById(R.id.spinner_viewActivity);
         DoubleBounce doubleBounce = new DoubleBounce();
-        progressBar.setIndeterminateDrawable(doubleBounce);
+        progressBar.setIndeterminateDrawable(doubleBounce);*/
+
+
         mFirebaseDatabase= FirebaseDatabase.getInstance();
         String message = intent.getStringExtra("TeamViewKey");
-       /* showData();*/
 
 
 
+        //query that fire to fetch data from firebase
         Query query = FirebaseFirestore.getInstance()
                 .collection("TeamMembers")
                 .whereEqualTo("TeamId", message);
@@ -76,7 +91,7 @@ public class ViewActivity extends AppCompatActivity {
                         team.setName(snapshot.getString("Name"));
                         team.setMobile(snapshot.getString("Mobile"));
                         team.setMembersId(snapshot.getId());
-                        progressBar.setVisibility(View.GONE);
+                        dialog.dismissDialog();
                         return team;
                     }
                 })
@@ -86,7 +101,7 @@ public class ViewActivity extends AppCompatActivity {
         firebaseRecyclerAdapter = new FirestoreRecyclerAdapter<TeamMembers, MyViewHolderTopics>(options) {
             @Override
             protected void onBindViewHolder(@NonNull MyViewHolderTopics holder, int position, @NonNull final TeamMembers model) {
-                holder.setDetails(getApplicationContext(), model.getMobile(),model.getName());
+                holder.setDetails(getApplicationContext(),model.getName(), model.getMobile());
                 holder.setOnClickListner(new MyViewHolderTopics.ClickListner() {
                     @Override
                     public void onItemClick(View view, int position) {
@@ -118,7 +133,18 @@ public class ViewActivity extends AppCompatActivity {
         firebaseRecyclerAdapter.startListening();
         mRecyclerView.setAdapter(firebaseRecyclerAdapter);
 
+        //swipe recycler item
+        /*new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
 
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+            }
+        }).attachToRecyclerView(mRecyclerView);*/
 
 
 
@@ -143,6 +169,8 @@ public class ViewActivity extends AppCompatActivity {
                     }
                 });*/
     }
+
+
 
    /* private void showData(){
 

@@ -1,4 +1,4 @@
-package com.example;
+package com.example.interviewversionone.ui;
 
 import android.app.Activity;
 import android.view.LayoutInflater;

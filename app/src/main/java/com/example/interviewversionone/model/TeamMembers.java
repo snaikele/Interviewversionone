@@ -1,9 +1,18 @@
 package com.example.interviewversionone.model;
 
 public class TeamMembers {
-    String Mobile,Name, TeamId, MembersId,Task;
+    String Mobile,Name, TeamId, MembersId,Task, TaskImage;
 
     public TeamMembers() {
+    }
+
+
+    public String getTaskImage() {
+        return TaskImage;
+    }
+
+    public void setTaskImage(String taskImage) {
+        TaskImage = taskImage;
     }
 
     public String getTask() {
