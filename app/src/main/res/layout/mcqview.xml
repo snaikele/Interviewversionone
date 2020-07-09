@@ -11,8 +11,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="10dp"
-        >
+        android:padding="10dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -77,16 +76,33 @@
                   />
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/tv_viewAns"
+                    android:id="@+id/tv_viewAnsText"
                     android:textSize="12sp"
-
                     android:textColor="#000"
                     android:text="View answer"
                     android:layout_marginTop="10dp"
-                    android:layout_marginRight="100dp"
                     android:paddingLeft="20dp"
+                    android:layout_below="@+id/tv_OptionThree"
+                    />
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/img_button_mcq_view"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_viewAns"
+                    android:textSize="12sp"
+                    android:textColor="#FF9800"
+                    android:text="A"
+                    android:textStyle="bold"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/tv_viewAnsText"
                     android:layout_below="@+id/tv_OptionThree"
                     />
 

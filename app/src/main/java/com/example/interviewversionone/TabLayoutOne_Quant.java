@@ -1,6 +1,7 @@
 package com.example.interviewversionone;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,8 +14,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.interviewversionone.holders.MyViewHolderQuant;
 import com.example.interviewversionone.holders.MyViewHolderTopics;
-import com.example.interviewversionone.model.TeamMembers;
+import com.example.interviewversionone.model.MCQ;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
@@ -37,9 +40,9 @@ public class TabLayoutOne_Quant extends Fragment {
     RecyclerView mRecyclerView;
     FirebaseDatabase mFirebaseDatabase;
     DatabaseReference mDatabaseReference;
-    FirestoreRecyclerAdapter<TeamMembers, MyViewHolderTopics> firebaseRecyclerAdapter;
+    FirestoreRecyclerAdapter<MCQ, MyViewHolderQuant> firebaseRecyclerAdapter;
 
-    FirestoreRecyclerOptions<TeamMembers> options;
+    FirestoreRecyclerOptions<MCQ> options;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -84,14 +87,24 @@ public class TabLayoutOne_Quant extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        View rootView = inflater.inflate(R.layout.activity_tab_layout_one__quant, container, false);
+        rootView.setTag(TAG);
 //        tips=getView().findViewById(R.id.tv_tips);
         // Inflate the layout for this fragment
+
+
+        return inflater.inflate(R.layout.activity_tab_layout_one__quant, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         Intent intent = getActivity().getIntent();
-        mLinearLayoutManager = new LinearLayoutManager(getContext());
+        mLinearLayoutManager = new LinearLayoutManager(getActivity());
         mLinearLayoutManager.setReverseLayout(false);
         mLinearLayoutManager.setStackFromEnd(false);
-        mRecyclerView=getView().findViewById(R.id.rv_tab_layout_one_quant);
+        mRecyclerView=view.findViewById(R.id.rv_tab_layout_one_quant);
 
 
 
@@ -106,27 +119,27 @@ public class TabLayoutOne_Quant extends Fragment {
         Query query = FirebaseFirestore.getInstance()
                 .collection("Quant")
                 .whereEqualTo("ExamId", message);
-        options = new FirestoreRecyclerOptions.Builder<TeamMembers>()
-                .setQuery(query, new SnapshotParser<TeamMembers>() {
+        options = new FirestoreRecyclerOptions.Builder<MCQ>()
+                .setQuery(query, new SnapshotParser<MCQ>() {
                     @NonNull
                     @Override
-                    public TeamMembers parseSnapshot(@NonNull DocumentSnapshot snapshot) {
-                        TeamMembers team= new TeamMembers();
-                        team.setTeamId(snapshot.getId());
-                        team.setName(snapshot.getString("Name"));
-                        team.setMobile(snapshot.getString("Mobile"));
-                        team.setMembersId(snapshot.getId());
+                    public MCQ parseSnapshot(@NonNull DocumentSnapshot snapshot) {
+                        MCQ team= new MCQ();
+                        team.setMcqId(snapshot.getId());
+                        team.setQuestion(snapshot.getString("Question"));
+                        team.setAnswer(snapshot.getString("Answer"));
+
                         return team;
                     }
                 })
                 /*.setQuery(query, Team.class)*/
                 .build();
 
-        firebaseRecyclerAdapter = new FirestoreRecyclerAdapter<TeamMembers, MyViewHolderTopics>(options) {
+        firebaseRecyclerAdapter = new FirestoreRecyclerAdapter<MCQ, MyViewHolderQuant>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull MyViewHolderTopics holder, int position, @NonNull final TeamMembers model) {
-                holder.setDetails(getActivity(),model.getName(), model.getMobile());
-                holder.setOnClickListner(new MyViewHolderTopics.ClickListner() {
+            protected void onBindViewHolder(@NonNull MyViewHolderQuant holder, int position, @NonNull final MCQ model) {
+                holder.setDetails(getActivity(),model.getQuestion(), model.getAnswer(),model.getMcqId());
+                holder.setOnClickListner(new MyViewHolderQuant.ClickListner() {
                     @Override
                     public void onItemClick(View view, int position) {
                        /* Intent intent = new Intent(TabLayoutOne_Quant.this, DetailActivity.class);
@@ -145,9 +158,9 @@ public class TabLayoutOne_Quant extends Fragment {
 
             @NonNull
             @Override
-            public MyViewHolderTopics onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.topicslist, parent, false);
-                final MyViewHolderTopics viewHolder = new MyViewHolderTopics(itemView);
+            public MyViewHolderQuant onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.mcqview, parent, false);
+                final MyViewHolderQuant viewHolder = new MyViewHolderQuant(itemView);
 
 
                 return viewHolder;
@@ -158,9 +171,30 @@ public class TabLayoutOne_Quant extends Fragment {
         mRecyclerView.setAdapter(firebaseRecyclerAdapter);
 
 
-        return inflater.inflate(R.layout.activity_tab_layout_one__quant, container, false);
     }
 
+    @Override
+    public void onStart(){
+        super.onStart();
+        if (firebaseRecyclerAdapter!=null)
+            firebaseRecyclerAdapter.startListening();
+    }
+    @Override
+    public void onStop(){
+        super.onStop();
+        if (firebaseRecyclerAdapter!=null)
+            firebaseRecyclerAdapter.startListening();
+
+
+
+
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        if (firebaseRecyclerAdapter!=null)
+            firebaseRecyclerAdapter.startListening();
+    }
 
 
 }

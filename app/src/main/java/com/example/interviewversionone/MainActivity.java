@@ -80,12 +80,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mLinearLayoutManager = new LinearLayoutManager(this);
+        mLinearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,true);
         mLinearLayoutManager.setReverseLayout(false);
         mLinearLayoutManager.setStackFromEnd(false);
         mRecyclerView=findViewById(R.id.rec_btnview);
         mFirebaseDatabase= FirebaseDatabase.getInstance();
-        tips=findViewById(R.id.tv_tips);
+        /*tips=findViewById(R.id.tv_tips);*/
         /*mDatabaseReference = mFirebaseDatabase.getReference("Button");*/
 
         Button button= findViewById(R.id.btn);
@@ -100,9 +100,6 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar= findViewById(R.id.main_toolbaar);
 
-
-
-        setSupportActionBar(toolbar);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference user=db.collection("slider").document("images");
@@ -153,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
 
                         imageSlider.setImageList(slideModels, true);
 
-                        tips.setVisibility(View.VISIBLE);
+                        /*tips.setVisibility(View.VISIBLE);*/
 
 
 

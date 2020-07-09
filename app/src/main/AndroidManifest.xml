@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.interviewversionone">
 
     <application
@@ -11,9 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ListPreparationExam"></activity>
-        <activity android:name=".TabLayoutThree_Logicall" />
-        <activity android:name=".TabLayoutTwo_English" />
-        <activity android:name=".TabLayoutOne_Quant" />
+        <activity android:name=".TabLayoutThree_Logicall"
+            tools:ignore="Instantiatable" />
+        <activity android:name=".TabLayoutTwo_English"
+            tools:ignore="Instantiatable" />
+        <activity android:name=".TabLayoutOne_Quant"
+            tools:ignore="Instantiatable" />
         <activity android:name=".MCQList" />
         <activity android:name=".ui.DetailActivity" />
         <activity android:name=".ui.ViewActivity" />
