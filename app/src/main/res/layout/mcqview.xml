@@ -6,91 +6,218 @@
     android:background="#FFF"
     app:cardCornerRadius="3.0dp"
     app:cardUseCompatPadding="true"
-    app:contentPadding="5.0dp"
-   >
-    <RelativeLayout
+    app:contentPadding="5.0dp">
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="10dp">
-
+        android:padding="10dp"
+        android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#000"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:text="Question no 1 of quant this is compulsary question"
-            android:paddingLeft="20dp"
+            android:layout_marginLeft="25dp"
             android:layout_marginTop="2dp"
             android:id="@+id/tv_topicName"
+            />
+        <ImageButton
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_question"
+            android:background="@color/transparnt"
+            android:id="@+id/img_button_mcq_view"
+            android:layout_marginTop="8dp"
 
             />
+    </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/backgroundoption"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="30dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="A"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/black"
+                android:id="@+id/optionA"
+                android:layout_marginTop="5dp"
+                android:textStyle="bold"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/img_optionOne"
+                android:src="@drawable/ic_question"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/tv_optionOne"
+                />
              <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_optionOne"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textColor="#FF9800"
-                android:text="A . Option 1 "
+                android:text="Option 1 "
                 android:layout_marginTop="5dp"
-                android:paddingLeft="20dp"
-                android:gravity="center_vertical"
-                android:layout_below="@+id/tv_topicName"
+                android:layout_centerVertical="true"
+                android:padding="10dp"
+                 android:layout_toRightOf="@id/optionA"
              />
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/backgroundoption"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="30dp"
+            >
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="B"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/black"
+                android:id="@+id/optionB"
+                android:layout_marginTop="5dp"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_optionTwo"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textColor="#FF9800"                
-                android:text="B . Option 2 "
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="100dp"
-                android:gravity="end"
-                android:layout_below="@+id/tv_topicName"
+                android:text="Option 2 "
+                android:layout_marginTop="10dp"
+                android:layout_centerVertical="true"
+                android:padding="10dp"
+                android:layout_toRightOf="@id/optionB"
             />
-
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/img_optionTwo"
+                android:src="@drawable/ic_question"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/tv_optionTwo"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/backgroundoption"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="30dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="C"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/black"
+                android:id="@+id/optionC"
+                android:layout_marginTop="5dp"
+                android:textStyle="bold"
+                />
              <TextView
-                 android:layout_width="match_parent"
+                 android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
                  android:id="@+id/tv_OptionThree"
-                 android:textSize="12sp"
+                 android:textSize="14sp"
                  android:textColor="#FF9800"
-                 android:text="C . Option 3 "
-                 android:layout_marginTop="5dp"
-                 android:paddingLeft="20dp"
-                 android:gravity="center_vertical"
-                 android:layout_below="@+id/tv_optionOne"
-             />
+                 android:text="Option 3 "
+                 android:layout_marginTop="10dp"
+                 android:layout_centerVertical="true"
+                 android:padding="10dp"
+                 android:layout_toRightOf="@id/optionC"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/img_optionThree"
+                android:src="@drawable/ic_question"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/tv_OptionThree"
+                />
+        </RelativeLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/backgroundoption"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="30dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="D"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/black"
+                android:id="@+id/optionD"
+                android:layout_marginTop="5dp"
+                android:textStyle="bold"
+                />
               <TextView
-                  android:layout_width="match_parent"
+                  android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:id="@+id/tv_optionFour"
-                  android:textSize="12sp"
+                  android:textSize="14sp"
                   android:textColor="#FF9800"
-                  android:text="D . Option 4 "
-                  android:layout_marginTop="5dp"
-                  android:layout_marginRight="100dp"
-                  android:gravity="end"
-                  android:layout_below="@+id/tv_optionTwo"
+                  android:text="Option 4 "
+                  android:layout_marginTop="10dp"
+                  android:padding="10dp"
+                  android:layout_centerVertical="true"
+                  android:layout_toRightOf="@id/optionD"
                   />
-
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/img_optionFour"
+                android:src="@drawable/ic_question"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/tv_optionFour"
+                />
+        </RelativeLayout>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/tv_viewAnsText"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:textColor="#000"
                     android:text="View answer"
                     android:layout_marginTop="10dp"
-                    android:paddingLeft="20dp"
-                    android:layout_below="@+id/tv_OptionThree"
+                    android:layout_marginStart="25dp"
+                    android:layout_below="@+id/tv_optionFour"
                     />
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/img_button_mcq_view"
-                    />
+
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -103,7 +230,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@id/tv_viewAnsText"
-                    android:layout_below="@+id/tv_OptionThree"
+                    android:layout_below="@+id/tv_optionFour"
                     />
 
         <!--<ImageView
@@ -115,6 +242,6 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true" />  -->
-    </RelativeLayout>
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>

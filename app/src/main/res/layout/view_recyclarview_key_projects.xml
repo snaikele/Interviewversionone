@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="5dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/convergence"
+            android:textStyle="bold"
+            android:textSize="10sp"
+            android:id="@+id/tv_projectName"
+            android:text="Real Time Hand Recognition For Potent Communication (ASL)"
+            android:textColor="@color/black"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:textSize="10sp"
+            android:textColor="@color/black"
+            android:text="2019-2020"
+            android:id="@+id/tv_projectPeroid"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/Darkgray"
+            android:layout_below="@id/tv_projectName"
+            android:text="Final Year Project"
+            android:textSize="10sp"
+            android:textStyle="italic"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="2dp"
+            android:id="@+id/tv_projectType"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/Darkgray"
+            android:layout_below="@id/tv_projectPeroid"
+            android:layout_alignParentEnd="true"
+            android:text="GECA"
+            android:textSize="10sp"
+            android:textStyle="italic"
+            android:id="@+id/tv_projectDetail"
+            />
+    </RelativeLayout>
+    <com.example.interviewversionone.Utils.TextViewEx
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/key_project_description"
+        android:textSize="10sp"
+        android:layout_marginLeft="20dp"
+        android:id="@+id/project_description"
+        android:textColor="@color/Mediumgray"
+        />
+</LinearLayout>

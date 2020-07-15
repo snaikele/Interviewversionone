@@ -1,4 +1,4 @@
-package com.example.interviewversionone;
+package com.example.interviewversionone.ui;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,6 +12,10 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 
+import com.example.interviewversionone.R;
+import com.example.interviewversionone.TabLayoutOne_Quant;
+import com.example.interviewversionone.TabLayoutThree_Logicall;
+import com.example.interviewversionone.TabLayoutTwo_English;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.tabs.TabLayout;
 
@@ -25,7 +29,7 @@ public class MCQList extends AppCompatActivity {
 
     private TabLayoutOne_Quant tabLayoutOne_quant;
     private TabLayoutTwo_English tabLayoutTwo_english;
-    private  TabLayoutThree_Logicall tabLayoutThree_logicall;
+    private TabLayoutThree_Logicall tabLayoutThree_logicall;
 
     private static final String TAG = "TabLayoutInfo";
 

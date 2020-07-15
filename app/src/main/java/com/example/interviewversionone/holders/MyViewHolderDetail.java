@@ -43,7 +43,7 @@ public class MyViewHolderDetail  extends RecyclerView.ViewHolder {
 
     public void setDetails(Context ctx/*, String name*/, String task, String detailImg){
 
-        TextView t1 = mview.findViewById(R.id.tv_DetailName);
+        //TextView t1 = mview.findViewById(R.id.tv_DetailName);
         TextView t2 = mview.findViewById(R.id.tv_detailText);
         ImageView i1 = mview.findViewById(R.id.img_detailView);
         Picasso.get().load(detailImg).into(i1);

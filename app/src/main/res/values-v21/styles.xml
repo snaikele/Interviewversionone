@@ -5,4 +5,11 @@
         <item name="windowNoTitle">true</item>
         <item name="android:statusBarColor">@color/colorPrimary</item>
     </style>
+    <style name="HeaderTitleStyle" parent="@android:style/TextAppearance">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:singleLine">false</item>
+        <item name="android:textAlignment">center</item>
+
+    </style>
 </resources>

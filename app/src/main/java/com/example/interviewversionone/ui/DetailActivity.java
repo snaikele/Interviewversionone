@@ -14,13 +14,14 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
 /*import com.example.LoadingDialogs;*/
+import com.example.interviewversionone.Utils.TextViewEx;
 import com.example.interviewversionone.holders.MyViewHolderDetail;
 import com.example.interviewversionone.R;
 import com.example.interviewversionone.model.TeamMembers;
@@ -43,12 +44,14 @@ public class DetailActivity extends AppCompatActivity {
     private static final String TAG = "TeamMemberDetail";
     LinearLayoutManager mLinearLayoutManager;
     RecyclerView mRecyclerView;
-    TextView textView,name;
+    TextViewEx textView;
+    TextViewEx  name;
     ImageView imageView;
     ProgressBar progressBar;
     FirebaseDatabase mFirebaseDatabase;
     DatabaseReference mDatabaseReference;
     TeamMembers teamMembers;
+    Button next;
     FirestoreRecyclerAdapter<TeamMembers, MyViewHolderDetail> firebaseRecyclerAdapter;
 
     FirestoreRecyclerOptions<TeamMembers> options;
@@ -57,9 +60,11 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         textView=findViewById(R.id.tv_detailText);
-        name=findViewById(R.id.tv_DetailName);
+        //name=findViewById(R.id.tv_DetailName);
         imageView=findViewById(R.id.img_detailView);
+        next = findViewById(R.id.next);
         Intent intent = getIntent();
+
 
         final LoadingDialogs dialog =new LoadingDialogs(DetailActivity.this);
         dialog.startLoadingDialog();
@@ -77,6 +82,7 @@ public class DetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         //toolbar back button click listner
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,6 +96,7 @@ public class DetailActivity extends AppCompatActivity {
 
 
         final CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.CollapsingToolbar);
+        //collapsingToolbarLayout.setTitle(" ");
 
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.security);
         Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
@@ -113,6 +120,14 @@ public class DetailActivity extends AppCompatActivity {
 
         final String message = intent.getStringExtra("TeamDetailKey");
 
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
 
 
         final FirebaseFirestore db  = FirebaseFirestore.getInstance();
@@ -127,7 +142,10 @@ public class DetailActivity extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Toast.makeText(getApplicationContext(),""+document.getData(),Toast.LENGTH_SHORT).show();
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                textView.setText(document.getString("Task"));
+
+                                textView.setText(document.getString("Task").replace("__b","\n\n"),true);
+
+
                                 String image = document.getString("TaskImage");
                                 Picasso.get().load(image).into(imageView);
                                 final DocumentReference docRef = db.collection("TeamMembers").document(document.getString("MembersId"));
@@ -138,11 +156,11 @@ public class DetailActivity extends AppCompatActivity {
                                             DocumentSnapshot document = task.getResult();
                                             if (document.exists()) {
                                                 Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                                                name.setText(document.getString("Name"));
+                                                //name.setText(document.getString("Name"),true);
 
                                                 String Name = document.getString("Name");
                                                 collapsingToolbarLayout.setTitle(Name);
-                                                name.setText(Name);
+                                                //name.setText(Name);
 
                                                 dialog.dismissDialog();
                                                /* progressBar.setVisibility(View.GONE);*/

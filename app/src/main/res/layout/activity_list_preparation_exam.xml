@@ -4,13 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ListPreparationExam"
+    tools:context=".ui.ListPreparationExam"
     android:orientation="vertical">
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/list_of_toolbaar"
+        app:layout_collapseMode="pin"
+        style="@style/Toolbar.TitleText"
+        app:titleTextColor="@color/white"
+        android:background="@color/colorPrimary"
+        app:theme="@style/ToolbarColoredBackArrow"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/rv_listOfExams"
+        android:layout_marginTop="10dp"
         />
 
 </LinearLayout>

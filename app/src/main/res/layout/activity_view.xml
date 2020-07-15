@@ -11,11 +11,24 @@
     >
 
 
+   <androidx.appcompat.widget.Toolbar
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:id="@+id/view_toolbaar"
+       app:layout_collapseMode="pin"
+       style="@style/Toolbar.TitleText"
+       app:titleTextColor="@color/white"
+       android:background="@color/colorPrimary"
+       app:theme="@style/ToolbarColoredBackArrow"
 
+       >
+
+   </androidx.appcompat.widget.Toolbar>
    <androidx.recyclerview.widget.RecyclerView
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:id="@+id/rec_topicslist"/>
+       android:id="@+id/rec_topicslist"
+       android:layout_marginTop="10dp"/>
    <!--<com.github.ybq.android.spinkit.SpinKitView
        xmlns:app="http://schemas.android.com/apk/res-auto"
        android:layout_width="150dp"

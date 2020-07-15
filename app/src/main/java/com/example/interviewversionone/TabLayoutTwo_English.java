@@ -114,6 +114,10 @@ public class TabLayoutTwo_English extends Fragment {
                         team.setMcqId(snapshot.getId());
                         team.setQuestion(snapshot.getString("Question"));
                         team.setAnswer(snapshot.getString("Answer"));
+                        team.setOptionOne(snapshot.getString("optionOne"));
+                        team.setOptionTwo(snapshot.getString("optionTwo"));
+                        team.setOptionThree(snapshot.getString("optionThree"));
+                        team.setOptionFour(snapshot.getString("optionFour"));
 
                         return team;
                     }
@@ -124,7 +128,7 @@ public class TabLayoutTwo_English extends Fragment {
         firebaseRecyclerAdapter = new FirestoreRecyclerAdapter<MCQ, MyViewHolderQuant>(options) {
             @Override
             protected void onBindViewHolder(@NonNull MyViewHolderQuant holder, int position, @NonNull final MCQ model) {
-                holder.setDetails(getActivity(),model.getQuestion(), model.getAnswer(),model.getMcqId());
+                holder.setDetails(getActivity(),model.getQuestion(), model.getAnswer(),model.getOptionOne(),model.getOptionTwo(),model.getOptionThree(),model.getOptionFour(),model.getMcqId());
                 holder.setOnClickListner(new MyViewHolderQuant.ClickListner() {
                     @Override
                     public void onItemClick(View view, int position) {

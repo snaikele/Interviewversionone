@@ -2,22 +2,16 @@ package com.example.interviewversionone.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -27,24 +21,19 @@ import com.example.interviewversionone.model.TeamMembers;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
-import com.github.ybq.android.spinkit.style.DoubleBounce;
-import com.google.firebase.database.DatabaseReference;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.annotations.Nullable;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 
 public class ViewActivity extends AppCompatActivity {
-    private static final String TAG = "TeamMemberInfo";
-    EditText editText;
-    DatabaseReference databaseReference;
+    private static final String TAG = "~";
     LinearLayoutManager mLinearLayoutManager;
     RecyclerView mRecyclerView;
     FirebaseDatabase mFirebaseDatabase;
-    DatabaseReference mDatabaseReference;
     FirestoreRecyclerAdapter<TeamMembers, MyViewHolderTopics> firebaseRecyclerAdapter;
 
     FirestoreRecyclerOptions<TeamMembers> options;
@@ -59,19 +48,30 @@ public class ViewActivity extends AppCompatActivity {
         mLinearLayoutManager.setStackFromEnd(false);
         mRecyclerView=findViewById(R.id.rec_topicslist);
 
+        final Toolbar toolbar= findViewById(R.id.view_toolbaar);
 
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                finish();
+            }
+        });
 
         //dialog box, shows loading indication
         final LoadingDialogs dialog =new LoadingDialogs(ViewActivity.this);
         dialog.startLoadingDialog();
-
 
         //custom progress bar from gitHub library
         /*progressBar = findViewById(R.id.spinner_viewActivity);
         DoubleBounce doubleBounce = new DoubleBounce();
         progressBar.setIndeterminateDrawable(doubleBounce);*/
 
-
+        final FirebaseFirestore db  = FirebaseFirestore.getInstance();
         mFirebaseDatabase= FirebaseDatabase.getInstance();
         String message = intent.getStringExtra("TeamViewKey");
 
@@ -91,22 +91,48 @@ public class ViewActivity extends AppCompatActivity {
                         team.setName(snapshot.getString("Name"));
                         team.setMobile(snapshot.getString("Mobile"));
                         team.setMembersId(snapshot.getId());
+
                         dialog.dismissDialog();
+
                         return team;
                     }
                 })
                 /*.setQuery(query, Team.class)*/
                 .build();
 
+
+        assert message != null;
+        final DocumentReference docRef = db.collection("Team").document(message);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        toolbar.setTitle(document.getString("TeamName"));
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+
+
+
+
         firebaseRecyclerAdapter = new FirestoreRecyclerAdapter<TeamMembers, MyViewHolderTopics>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull MyViewHolderTopics holder, int position, @NonNull final TeamMembers model) {
+            protected void onBindViewHolder(@NonNull final MyViewHolderTopics holder, int position, @NonNull final TeamMembers model) {
                 holder.setDetails(getApplicationContext(),model.getName(), model.getMobile());
                 holder.setOnClickListner(new MyViewHolderTopics.ClickListner() {
                     @Override
                     public void onItemClick(View view, int position) {
                         Intent intent = new Intent(ViewActivity.this, DetailActivity.class);
                         intent.putExtra("TeamDetailKey", model.getMembersId());
+                        intent.putExtra("next", holder.getAdapterPosition());
                         startActivity(intent);
 
                         // Toast.makeText(MainActivity.this,""+model.getTeamId(),Toast.LENGTH_SHORT).show();

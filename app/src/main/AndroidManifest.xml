@@ -11,14 +11,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ListPreparationExam"></activity>
-        <activity android:name=".TabLayoutThree_Logicall"
+        <activity android:name=".ui.EditProfileActivity"></activity>
+        <activity android:name=".ui.ResumeFormatOneActivity" />
+        <activity android:name=".ui.ViewAllActivity" />
+        <activity android:name=".ui.ListPreparationExam" />
+        <activity
+            android:name=".TabLayoutThree_Logicall"
             tools:ignore="Instantiatable" />
-        <activity android:name=".TabLayoutTwo_English"
+        <activity
+            android:name=".TabLayoutTwo_English"
             tools:ignore="Instantiatable" />
-        <activity android:name=".TabLayoutOne_Quant"
+        <activity
+            android:name=".TabLayoutOne_Quant"
             tools:ignore="Instantiatable" />
-        <activity android:name=".MCQList" />
+        <activity android:name=".ui.MCQList" />
         <activity android:name=".ui.DetailActivity" />
         <activity android:name=".ui.ViewActivity" />
         <activity
@@ -31,6 +37,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
         <service
             android:name=".notification.FCMMessagingService"

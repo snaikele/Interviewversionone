@@ -4,73 +4,55 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ViewFlipper;
 
-import com.daimajia.slider.library.Animations.DescriptionAnimation;
-import com.daimajia.slider.library.SliderLayout;
-import com.daimajia.slider.library.SliderTypes.BaseSliderView;
-import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
-import com.example.interviewversionone.holders.MainSliderAdapter;
 import com.example.interviewversionone.holders.MyViewHolder;
-import com.example.interviewversionone.model.Banner;
 import com.example.interviewversionone.model.Team;
+import com.example.interviewversionone.ui.ListPreparationExam;
+import com.example.interviewversionone.ui.ResumeFormatOneActivity;
 import com.example.interviewversionone.ui.ViewActivity;
+import com.example.interviewversionone.ui.ViewAllActivity;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
-import com.github.ybq.android.spinkit.style.DoubleBounce;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.annotations.Nullable;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import ss.com.bannerslider.Slider;
-import ss.com.bannerslider.indicators.IndicatorShape;
+import static androidx.core.view.GravityCompat.START;
 
 public class MainActivity extends AppCompatActivity {
-    /*ImageView img,img1,img2,img3,img4;*/
-    ViewFlipper viewFlipper;
-    String img1,img2,img3;
+
     private static final String TAG = "slider";
-    TextView tips;
-    ProgressBar progressBar;
+
     LinearLayoutManager mLinearLayoutManager;
     RecyclerView mRecyclerView;
     FirebaseDatabase mFirebaseDatabase;
-    private Slider slider;
-    DatabaseReference mDatabaseReference;
     FirestoreRecyclerAdapter<Team, MyViewHolder> firebaseRecyclerAdapter;
-    boolean b;
     FirestoreRecyclerOptions<Team> options;
+    NavigationView navigationView;
 
 
 
@@ -88,25 +70,84 @@ public class MainActivity extends AppCompatActivity {
         /*tips=findViewById(R.id.tv_tips);*/
         /*mDatabaseReference = mFirebaseDatabase.getReference("Button");*/
 
-        Button button= findViewById(R.id.btn);
-        button.setOnClickListener(new View.OnClickListener() {
+        Toolbar toolbar= findViewById(R.id.main_toolbaar);
+
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_notification_white);
+
+        final DrawerLayout drawer= findViewById(R.id.drawer);
+
+        navigationView =(NavigationView) findViewById(R.id.nevigation);
+
+        TextView viewall= findViewById(R.id.view_all);
+        viewall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(MainActivity.this,ListPreparationExam.class);
+                Intent intent=new Intent(MainActivity.this, ViewAllActivity.class);
                 startActivity(intent);
             }
         });
 
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawer.openDrawer(START);
+            }
+        });
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case R.id.newsfeed:
+                        Intent i = new Intent(MainActivity.this, ResumeFormatOneActivity.class);
+                        startActivity(i);
 
-        Toolbar toolbar= findViewById(R.id.main_toolbaar);
+                        break;
+                    case R.id.facebook:
+
+                        break;
+                    case R.id.Instagram:
+
+                        break;
+
+                    case R.id.Download:
+
+                        break;
+                    case R.id.Logout:
+
+                }
+
+                return false;
+            }
+        });
+
+        Button button= findViewById(R.id.btn);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(MainActivity.this, ListPreparationExam.class);
+                startActivity(intent);
+            }
+        });
+
+        showSlider();
+        showData();
 
 
+
+
+
+
+
+    }
+
+    private void showSlider() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference user=db.collection("slider").document("images");
         user.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-               //slider if-else
+                //slider if-else
                 if(task.isSuccessful())
                 {
                     DocumentSnapshot document = task.getResult();
@@ -167,15 +208,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-        showData();
-
-
     }
 
 
-    private void showData(){
+    protected void showData(){
+
         Query query = FirebaseFirestore.getInstance()
                 .collection("Team");
         options = new FirestoreRecyclerOptions.Builder<Team>()
@@ -194,6 +231,8 @@ public class MainActivity extends AppCompatActivity {
                 })
                 /*.setQuery(query, Team.class)*/
                 .build();
+
+
 
         firebaseRecyclerAdapter = new FirestoreRecyclerAdapter<Team, MyViewHolder>(options) {
             @Override
@@ -226,10 +265,9 @@ public class MainActivity extends AppCompatActivity {
                 return viewHolder;
             }
         };
-        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+        this.mRecyclerView.setLayoutManager(mLinearLayoutManager);
         firebaseRecyclerAdapter.startListening();
-        mRecyclerView.setAdapter(firebaseRecyclerAdapter);
-
+        this.mRecyclerView.setAdapter(firebaseRecyclerAdapter);
 
     }
 

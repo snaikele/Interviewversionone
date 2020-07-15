@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="15dp"
+    android:paddingLeft="5dp"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/convergence"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:id="@+id/tv_companyName"
+            android:text="Company Name - Ascellent Technologies"
+            android:textColor="@color/black"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:textSize="12sp"
+            android:textColor="@color/black"
+            android:text="Dec 2018 – Jan 2019"
+            android:id="@+id/tv_internshipPeroid"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/Darkgray"
+            android:layout_below="@id/tv_companyName"
+            android:text="Android based Internship"
+            android:textSize="10sp"
+            android:textStyle="italic"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="2dp"
+            android:id="@+id/tv_internshipPost"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/Darkgray"
+            android:layout_below="@id/tv_internshipPost"
+            android:layout_alignParentEnd="true"
+            android:text="Aurangabad"
+            android:textSize="10sp"
+            android:textStyle="italic"
+            android:layout_alignStart="@id/tv_internshipPeroid"
+            android:gravity="center"
+            android:id="@+id/tv_internshipCity"
+            />
+    </RelativeLayout>
+    <com.example.interviewversionone.Utils.TextViewEx
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/internship_experience"
+        android:textSize="10sp"
+        android:id="@+id/internship_detail"
+        android:textColor="@color/Mediumgray"
+        />
+</LinearLayout>

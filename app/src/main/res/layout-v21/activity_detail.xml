@@ -10,7 +10,7 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="320dp"
         android:id="@+id/app_barLayoutDetail"
         android:theme="@style/ThemeOverlay.MaterialComponents.Dark"
         android:fitsSystemWindows="true">
@@ -18,13 +18,15 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/CollapsingToolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="320dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             app:contentScrim="?attr/colorPrimary"
-
             android:fitsSystemWindows="true"
-            app:expandedTitleMarginStart="15dp"
-            app:expandedTitleMarginBottom="20dp"
+            app:expandedTitleMarginStart="20dp"
+            app:maxLines="10"
+            app:expandedTitleGravity="bottom"
+            app:expandedTitleMarginBottom="?actionBarSize"
+            app:expandedTitleTextAppearance="@style/HeaderTitleStyle"
             >
 
             <ImageView
@@ -39,7 +41,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="80dp"
                 android:layout_gravity="bottom"
                 android:background="@drawable/titlebackground"/>
 
@@ -91,22 +93,30 @@
             android:orientation="vertical"
             android:padding="10dp">
 
-            <TextView
+            <!--<com.example.interviewversionone.Utils.TextViewEx
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_DetailName"
                 android:textSize="24dp"
                 android:paddingLeft="20dp"
                 android:textColor="#000"
-                android:gravity="center_vertical"
-                />
-            <TextView
+                />-->
+            <com.example.interviewversionone.Utils.TextViewEx
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_detailText"
-                android:textSize="24dp"
+                android:textSize="16sp"
                 android:textColor="#000"
-                android:paddingLeft="20dp"/>
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
+                android:paddingBottom="20dp"
+                android:lineSpacingMultiplier="1.1"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/next"
+                android:text="NEXT"
+                />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

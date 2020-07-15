@@ -1,7 +1,8 @@
-package com.example.interviewversionone;
+package com.example.interviewversionone.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,10 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.interviewversionone.R;
 import com.example.interviewversionone.holders.MyHolderListOfExam;
-import com.example.interviewversionone.holders.MyViewHolder;
 import com.example.interviewversionone.model.ExamList;
-import com.example.interviewversionone.ui.ViewActivity;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
@@ -42,6 +42,19 @@ public class ListPreparationExam extends AppCompatActivity {
         mLinearLayoutManager.setStackFromEnd(false);
         mRecyclerView=findViewById(R.id.rv_listOfExams);
         mFirebaseDatabase= FirebaseDatabase.getInstance();
+        final Toolbar toolbar= findViewById(R.id.list_of_toolbaar);
+
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                finish();
+            }
+        });
 
         showData();
     }
